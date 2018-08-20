@@ -36,7 +36,7 @@
         android:text="選擇圖片"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
     <ImageButton
-        android:id="@+id/ib_ImageButton"
+        android:id="@+id/ib_imageButton"
         android:src="@drawable/no_image_box"
         android:layout_width="200dp"
         android:layout_height="200dp"
@@ -55,14 +55,16 @@
             android:text="取消"
             android:background="@color/colorPrimary"
             android:textColor="@android:color/white"
-            android:layout_margin="4dp" />
+            android:layout_margin="4dp"
+            android:onClick="clickCancel"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="完成"
             android:background="@color/colorPrimary"
             android:textColor="@android:color/white"
-            android:layout_margin="4dp" />
+            android:layout_margin="4dp"
+            android:onClick="clickFinish"/>
     </LinearLayout>
     
     

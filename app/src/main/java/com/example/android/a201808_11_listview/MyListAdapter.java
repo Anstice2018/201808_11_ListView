@@ -23,6 +23,11 @@ public class MyListAdapter extends BaseAdapter {
         this.activity = activity;
     }
 
+    // getter
+    public int[] m_getDrawableIds(){
+        return m_drawableIds;
+    }
+
 
     @Override
     public int getCount() {
