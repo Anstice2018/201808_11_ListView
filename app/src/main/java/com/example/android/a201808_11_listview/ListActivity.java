@@ -26,11 +26,11 @@ public class ListActivity extends AppCompatActivity
 
     private void init(){
         m_lv_item = findViewById(R.id.lv_item);
-        m_lv_item.setEmptyView(findViewById(R.id.tv_empty));
-
         m_Adapter = new MyListAdapter(this);
-        m_lv_item.setAdapter(m_Adapter);      //設定 資料轉接
-        m_lv_item.setOnItemClickListener(this);
+
+        m_lv_item.setEmptyView(findViewById(R.id.tv_empty));    // 設定
+        m_lv_item.setAdapter(m_Adapter);                        // 設定 資料轉接
+        m_lv_item.setOnItemClickListener(this);                 // 設定 處理點選項目 外包商
     }
 
     @Override
@@ -39,10 +39,10 @@ public class ListActivity extends AppCompatActivity
         Log.d("ListActivity", s);
 
         Intent intent = getIntent();
-        int[] m_drawableIds = m_Adapter.m_getDrawableIds();
-        intent.putExtra(KEY, m_drawableIds[i]);
-        setResult(RESULT_OK, intent);
+        int[] drawableIds = m_Adapter.getDrawableIds();     // Adapter 需提供 getter
+        intent.putExtra(KEY, drawableIds[i]);               // 放入所選圖片id
+        setResult(RESULT_OK, intent);                       // 設定結果
 
-        finish();
+        finish();                                           // 結束目前畫面，返回前一個畫面
     }
 }

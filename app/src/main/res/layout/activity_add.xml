@@ -14,6 +14,7 @@
         android:text="ID"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
     <EditText
+        android:id="@+id/ed_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lines="1"
@@ -25,6 +26,7 @@
         android:text="名稱"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
     <EditText
+        android:id="@+id/ed_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lines="1"
@@ -50,21 +52,23 @@
         android:layout_gravity="center"
         android:orientation="horizontal">
         <Button
+            android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="取消"
             android:background="@color/colorPrimary"
             android:textColor="@android:color/white"
             android:layout_margin="4dp"
-            android:onClick="clickCancel"/>
+            android:onClick="click"/>
         <Button
+            android:id="@+id/btn_finish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="完成"
             android:background="@color/colorPrimary"
             android:textColor="@android:color/white"
             android:layout_margin="4dp"
-            android:onClick="clickFinish"/>
+            android:onClick="click"/>
     </LinearLayout>
     
     
