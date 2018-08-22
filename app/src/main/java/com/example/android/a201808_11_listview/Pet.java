@@ -1,6 +1,8 @@
 package com.example.android.a201808_11_listview;
 
-public class Pet {
+import java.io.Serializable;
+
+public class Pet implements Serializable{
     private String id;
     private String name;
     private int drawableId;

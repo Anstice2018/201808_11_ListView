@@ -15,15 +15,13 @@
         android:text="id"
         android:layout_marginRight="16dp"
         android:layout_gravity="center_vertical"
-        android:textSize="32sp"
-        />
+        android:textSize="32sp" />
     <ImageView
         android:id="@+id/iv_item"
         android:src="@drawable/no_image_box"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:paddingTop="5dp"
-        android:scaleType="centerInside"
-        />
+        android:scaleType="centerInside" />
 
 </LinearLayout>
