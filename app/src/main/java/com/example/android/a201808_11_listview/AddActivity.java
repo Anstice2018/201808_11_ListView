@@ -36,6 +36,14 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add);
 
         init();
+
+        // 給 KEY 才能取能內容  (回想 map)
+        if (savedInstanceState != null){
+            id = savedInstanceState.getString(KEY_ID);
+            name = savedInstanceState.getString(KEY_NAME);
+            drawableId = savedInstanceState.getInt(KEY_DRAWABLE_ID);
+            m_ib_imageButton.setImageResource(drawableId);      // Maybe 是圖檔資源較大, 需要 setImageResource
+        }
     }
 
     private void init() {
@@ -47,6 +55,18 @@ public class AddActivity extends AppCompatActivity {
         m_btn_finish = findViewById(R.id.btn_finish);
         m_btn_finish.setEnabled(false);
     }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString(KEY_ID, id);
+        outState.putString(KEY_NAME, name);
+        outState.putInt(KEY_DRAWABLE_ID, drawableId);
+
+        super.onSaveInstanceState(outState);
+    }
+
+
 
 
     public void clickPick (View view){

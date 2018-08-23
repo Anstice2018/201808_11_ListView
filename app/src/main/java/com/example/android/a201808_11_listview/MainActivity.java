@@ -1,5 +1,6 @@
 package com.example.android.a201808_11_listview;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,13 +17,23 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener{
 
+    private final String TAG = this.getClass().getSimpleName();     // 取得類別名稱
+    private static final String FILENAME = "UseAnswers.data";       // 存檔名稱
+
+
     public static final String PET_KEY = "pet";
+    public static final String LIST_KEY = "list";
 
     private static final int 新增請求碼 = 0;
     private static final int 更新請求碼 = 2;
@@ -32,7 +43,8 @@ public class MainActivity extends AppCompatActivity
     private ListView m_listView;
     private MainListAdapter m_adapter;
 
-    private List<Pet> m_list = new ArrayList<>();   // 存放寵物物件
+    // List 介面不是可序列化，ArrayList 才可序列化
+    private ArrayList<Pet> m_list = new ArrayList<>();   // 存放寵物物件
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +64,12 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        if(savedInstanceState != null){
+            m_list = (ArrayList)savedInstanceState.getSerializable(LIST_KEY);
+        } else {
+            reStoreData();
+        }
+
         init();         // 初始化
 
     }
@@ -64,6 +82,53 @@ public class MainActivity extends AppCompatActivity
         m_listView.setAdapter(m_adapter);                       // 設定資料轉接
         m_listView.setOnItemClickListener(this);                // 由 MainActivity 自己負責處理項目點選
     }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(LIST_KEY, m_list);
+        super.onSaveInstanceState(outState);
+    }
+
+
+
+
+
+    public void saveData(){
+
+        // openFileOutput() 繼承自 Context，Activity 繼承自 Context
+        try{
+            FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);  // MODE_PRIVATE 私有檔案，禁止其他 App 使用
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(m_list);
+            oos.close();
+        } catch (IOException e){
+            Log.d(TAG, e.toString());
+            e.printStackTrace();
+        }
+
+    }
+
+    public void reStoreData(){
+        // openFileInput() 繼承自 Context，Activity 繼承自 Context
+        try{
+            FileInputStream fis = openFileInput(FILENAME);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            m_list = (ArrayList) ois.readObject();
+            ois.close();
+        } catch (IOException | ClassNotFoundException e){
+            Log.d(TAG, e.toString());
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveData();
+    }
+
+
 
 
 
@@ -131,6 +196,7 @@ public class MainActivity extends AppCompatActivity
                 })
                 .show();
     }
+
 
 
 
